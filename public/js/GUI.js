@@ -4,3 +4,5 @@
     //var instances = M.Modal.init(elems, options);
 
   });
+
+  console.log("Test");
