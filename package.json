@@ -1,0 +1,26 @@
+{
+  "name": "llamaplayer",
+  "version": "1.0.0",
+  "description": "A local app for audio playback",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Meshtatsuo/llamaPlayer.git"
+  },
+  "author": "Dominic Misasi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Meshtatsuo/llamaPlayer/issues"
+  },
+  "homepage": "https://github.com/Meshtatsuo/llamaPlayer#readme",
+  "devDependencies": {
+    "electron": "^18.1.0"
+  },
+  "dependencies": {
+    "materialize-css": "^1.0.0-rc.2"
+  }
+}
