@@ -1,9 +1,93 @@
+  /* Global Colors */
+  .dark-bg{
+    background-color: #22272e;
+    color: white;
+  }
+  
+  .card-bg{
+    background-color: #41454d;
+    color: white;
+  }
+
+  .collection{
+    border:none;
+  }
+
+  .collection.with-header .collection-header{
+    background-color: #41454d;
+  }
+  .collection .collection-item{
+    text-decoration: none;
+    background-color: #41454d;
+    color: white;
+  }
+
+    .collection .collection-item:nth-child(odd){
+    text-decoration: none;
+    background-color: #63676f;
+    color: white;
+  }
+
+
+  .block-item{
+    margin-top: 1%;
+    height: 25em;
+  }
+
+  .now-playing{
+    padding: 2%;
+  }
+
+  .overflow {
+    overflow-y: scroll;
+  }
+
   body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
   }
 
+
   main {
     flex: 1 0 auto;
+    height: 100%;
   }
+  
+  #sidebar{
+    position: fixed;
+    width: 5%;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+  }
+
+  #content{
+    position: relative;
+    left: 6%;
+    bottom: 0;
+  }
+
+  #queue{
+    padding: 2%;
+    overflow: hidden;
+    height: 30em;
+  }
+
+  #playlist{
+    overflow: auto;
+    padding: 0;
+    margin-bottom: 2%;
+    height: 15em;
+  }
+  footer{
+    z-index: 99999;
+  }
+  @media only screen and (max-width: 600px) {
+    #sidebar{
+      position:relative;
+    }
+  .footer-item {
+  text-align: center;
+  }
+}
