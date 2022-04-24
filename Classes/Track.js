@@ -1,10 +1,11 @@
 class Track {
   constructor(trackObject) {
-    const trackName = this.trackName;
-    const trackArtist = this.trackArtist;
-    const trackAlbum = this.trackAlbum;
-    const trackLength = this.trackLength;
-    const trackAlbumArt = this.trackAlbumArt;
+    this.name = trackObject.trackName;
+    this.artist = trackObject.trackArtist;
+    this.album = trackObject.trackAlbum;
+    this.duration = trackObject.trackLength;
+    this.albumArt = trackObject.trackAlbumArt;
+    this.path = trackObject.trackPath;
   }
 
   getTrackName() {
