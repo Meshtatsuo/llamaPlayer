@@ -9,8 +9,7 @@ const newSong = new Howl({
 
 function playSong(){
     console.log("Playing");
-    newSong.play();
+    console.log(newSong.play());
 }
 
-playSong();
 module.exports = playSong;

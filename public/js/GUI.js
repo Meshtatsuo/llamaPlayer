@@ -1,8 +1,7 @@
+const settingsbtn = document.querySelector(".settings-trigger")
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.modal');
-    //var instances = M.Modal.init(elems, options);
+window.api.receive("fromMain", (data) => {
+    console.log(`Received ${data} from main process`);
+});
 
-  });
-
-  console.log("Test");
+console.log(settingsbtn);
