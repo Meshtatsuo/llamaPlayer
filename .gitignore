@@ -3,7 +3,7 @@
 /DS_Store
 
 # Local Test Files
-./testFiles
+/testFiles/
 
 # Logs
 logs
