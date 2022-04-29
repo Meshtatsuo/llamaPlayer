@@ -1,7 +1,7 @@
-const { app, BrowserWindow} = require('electron');
+const { app, BrowserWindow } = require("electron");
 // include the Node.js 'path' module at the top of your file
-const path = require('path')
-const audio = require('./utils/audioPlayer');
+const path = require("path");
+const server = require("./server");
 
 // modify your existing createWindow() function
 const createWindow = () => {
@@ -12,12 +12,12 @@ const createWindow = () => {
       nodeIntegration: false, // is default value after Electron v5
       contextIsolation: true, // protect against prototype pollution
       enableRemoteModule: false, // turn off remote
-      preload: path.join(__dirname, 'preload.js'),
-    }
-  })
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
 
-  win.loadFile('./public/index.html')
-}
+  win.loadFile("./public/index.html");
+};
 
 const openSettings = () => {
   const settings = new BrowserWindow({
@@ -27,23 +27,22 @@ const openSettings = () => {
       nodeIntegration: false, // is default value after Electron v5
       contextIsolation: true, // protect against prototype pollution
       enableRemoteModule: false, // turn off remote
-      preload: path.join(__dirname, 'preload.js'),
-    }
-  })
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
 
-  settings.loadFile('./public/settings.html');
-}
+  settings.loadFile("./public/settings.html");
+};
 
 // create window if app activated with no windows open
 app.whenReady().then(() => {
-  createWindow()
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
-})
+  createWindow();
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
 
 // quit program when window is closed
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
-})
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
+});

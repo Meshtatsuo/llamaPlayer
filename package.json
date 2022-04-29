@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "jest",
-    "start": "electron ."
+    "start": "electron .",
+    "seed": "node seeds/index.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,7 @@
     "howler": "^2.2.3",
     "materialize-css": "^1.0.0-rc.2",
     "music-metadata": "^7.12.3",
-    "mysql2": "^2.3.3",
-    "sequelize": "^6.19.0"
+    "sequelize": "^6.19.0",
+    "sqlite3": "^5.0.6"
   }
 }
