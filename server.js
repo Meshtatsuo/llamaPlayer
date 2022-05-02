@@ -3,6 +3,9 @@ const app = express();
 const exphbs = require("express-handlebars");
 const hbs = exphbs.create({});
 
+const db = require("./utils/db");
+const library = require("./utils/fileParser");
+
 const path = require("path");
 
 //TESTING ONLY
@@ -35,4 +38,7 @@ sequelize
   })
   .then(() => {
     app.listen(PORT, () => console.log("Now listening"));
+    setTimeout(() => {
+      library.addLibrary();
+    }, 2000);
   });

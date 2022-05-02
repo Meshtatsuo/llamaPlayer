@@ -2,10 +2,7 @@ const { Artist } = require("../models");
 
 const artistData = [
   {
-    artist_name: "Bob Marley",
-  },
-  {
-    artist_name: "A Day to Remember",
+    artist_name: "Unknown Artist",
   },
 ];
 

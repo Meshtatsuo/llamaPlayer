@@ -1,27 +1,70 @@
 // File parser
 const mm = require("music-metadata");
 const { getLyrics, getSong } = require("genius-lyrics-api");
+const db = require("./db");
 
 const Path = require("path");
 const FS = require("fs");
 const util = require("util");
 const { getFileExtension } = require("../helpers/fileExtensions");
-const { create } = require("../models/Album");
 
 let files = [];
+let newTrack = {};
 
 require("dotenv").config();
 
 const testDir = "G:/Music/Music";
 
+function validateTrackObject(track) {
+  let validatedTrack = track;
+  if (validatedTrack.trackName == undefined) {
+    validatedTrack.trackName = "Unknown Track";
+  }
+
+  if (
+    validatedTrack.trackArtist === "" ||
+    validatedTrack.trackArtist == undefined
+  ) {
+    validatedTrack.trackArtist = "Unknown Artist";
+  }
+
+  if (
+    validatedTrack.trackAlbum === "" ||
+    validatedTrack.trackAlbum == undefined
+  ) {
+    validatedTrack.trackAlbum = "Unknown Album";
+  }
+
+  if (
+    validatedTrack.trackLength == null ||
+    validatedTrack.trackLength == undefined
+  ) {
+    validatedTrack.trackLength = 0;
+  }
+
+  if (
+    validatedTrack.trackAlbumArt === "" ||
+    validatedTrack.trackAlbumArt == undefined
+  ) {
+    validatedTrack.trackAlbumArt = "./public/images/placeholder_albumart.png";
+  }
+
+  if (
+    validatedTrack.trackPath === "" ||
+    validatedTrack.trackPath == undefined
+  ) {
+    console.log("Error in this track's path. Skipping file");
+    return false;
+  }
+
+  return validatedTrack;
+}
+
 async function createTrackObject(fileDir) {
-  let newTrack = {};
+  newTrack = {};
   try {
     // parse metadata from file
     const metadata = await mm.parseFile(fileDir);
-    // if successful, create newTrack object
-    console.log(metadata);
-
     //const art = await albumArt("Breaking Benjamin", "Ember");
     const options = {
       apiKey: process.env.GENIUS_TOKEN,
@@ -42,6 +85,7 @@ async function createTrackObject(fileDir) {
           trackAlbumArt: coverArt,
           trackPath: fileDir,
         };
+        return;
       })
       .catch((err) => {
         // if fetching album art fails, use local placeholder
@@ -50,15 +94,14 @@ async function createTrackObject(fileDir) {
           trackArtist: metadata.common.artist,
           trackAlbum: metadata.common.album,
           trackLength: metadata.format.duration,
-          trackAlbumArt: "../public/images/placeholder_albumart.png",
+          trackAlbumArt: "./public/images/placeholder_albumart.png",
           trackPath: fileDir,
         };
       });
-
-    //print out to console
-    console.log(newTrack);
+    return;
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
+    return;
   }
 }
 
@@ -85,10 +128,45 @@ async function scanDirectory(Directory) {
   });
 }
 
-async function addToDataBase(dir) {
-  const track = createTrackObject(dir);
+function addToDataBase(dir) {
+  let result;
+  createTrackObject(dir);
+  validateTrackObject(newTrack);
+  console.log(newTrack);
+  // validate artist, or create new
+  newTrack.trackArtist = db.createArtist(newTrack.trackArtist);
+
+  // validate album, or create new
+  newTrack.trackAlbum = db.createAlbum(newTrack.trackAlbum);
+
+  // Once album and artist are validated, create track
+  console.log(newTrack);
+  result = db.createTrack(newTrack);
+  if (!result) {
+    console.log("Failed to create track");
+  } else console.log("track created!");
 }
 
-scanDirectory(testDir);
-console.log(files);
-files.forEach((file) => addToDataBase(file));
+async function addLibrary(dir) {
+  await scanDirectory(testDir);
+
+  console.log(files[33]);
+
+  addToDataBase(files[33]);
+
+  /*
+  for (i = 0; i < files.length - 1; i++) {
+    console.log(files[i]);
+    await addToDataBase(files[i]);
+  }
+  */
+  console.log("Finished syncing libraries");
+}
+
+module.exports = {
+  createTrackObject,
+  scanDirectory,
+  addToDataBase,
+  scanDirectory,
+  addLibrary,
+};
