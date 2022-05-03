@@ -4,7 +4,7 @@ const exphbs = require("express-handlebars");
 const hbs = exphbs.create({});
 
 const db = require("./utils/db");
-const library = require("./utils/fileParser");
+const library = require("./utils/libraryManager");
 
 const path = require("path");
 
@@ -39,6 +39,8 @@ sequelize
   .then(() => {
     app.listen(PORT, () => console.log("Now listening"));
     setTimeout(() => {
-      library.addLibrary();
+      library.createTrack(
+        "G:/Music/Music/Bajofondo/Bajofondo Tango Club/10 Bruma.mp3"
+      );
     }, 2000);
   });

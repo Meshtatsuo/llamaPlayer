@@ -3,89 +3,83 @@ const sequelize = require("../config/connection");
 const path = require("path");
 const { Album, Artist, Track } = require("../models");
 
-// checks db for existing album
-function createAlbum(albumName) {
-  Album.findOne({ where: { title: albumName } }).then((result) => {
-    if (!result) {
-      return false;
-    }
-    let artistId;
-    Artist.findOne({
-      where: {
-        artist_name: artistName,
-      },
-      attributes: "id",
-    })
-      .then((dbArtistData) => {
-        if (!dbArtistData) {
-          createArtist(artistName);
-          createAlbum(artistName, albumName);
-        }
-        artistId = dbArtistData.id;
-      })
-      .catch((err) => {
-        console.log("Fatal Error: Failed to add new artist to database!");
-        console.log(err);
-        return false;
-      });
-
-    Album.create({
-      title: albumName,
-      artist_id: artistId,
-    })
-      .then((dbAlbumData) => {
-        console.log(albumName + "album added to the database");
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-        return false;
-      });
-    // if album exists return its ID to be used as the foreign key id
-    return result.dataValues.id;
-  });
-}
-
 // checks db for existing artist
 function createArtist(artistName) {
-  Artist.findOne({
-    where: {
-      artist_name: artistName,
-    },
-    attributes: ["id", "artist_name"],
+  Artist.create({
+    artist_name: artistName,
   })
-    .then((result) => {
-      if (!result) {
-        console.log("No artist found");
+    .then((dbArtistData) => {
+      if (!dbArtistData) {
+        console.log("No artist created");
         return false;
-      } else {
-        Artist.create({
-          artist_name: artistName,
-        })
-          .then((result) => {
-            if (!result) {
-              console.log("Failed to create artist: " + artistName);
-              return false;
-            }
-            console.log(artistName + " added to database!");
-            return result.dataValues.id;
-          })
-          .catch((err) => {
-            console.log(err);
-            return false;
-          });
       }
+      console.log("Artist created!");
+      return dbArtistData;
     })
     .catch((err) => {
-      console.log(err);
+      console.log("error adding artist to database: " + err);
       return false;
     });
 }
 
 // creates a new artist
-//function createArtist(artistName) {}
+async function artistExists(artistName) {
+  Artist.findOne({
+    where: { artist_name: artistName },
+  })
+    .then((dbArtistData) => {
+      if (!dbArtistData) {
+        console.log("Not found");
+        createArtist(artistName);
+      }
+      return dbArtistData.dataValues.id;
+    })
+    .catch((err) => {
+      console.log("failed to look up in dtabase: ", err);
+      return false;
+    });
+}
+
+function createAlbum(artistName, albumName) {
+  const artistId = artistExists(artistName);
+  if (!artistId) {
+    console.log("Unable to create artist. skipping album creation...");
+    return false;
+  }
+  Album.create({
+    title: albumName,
+    artist_id: artistId,
+  })
+    .then((dbAlbumData) => {
+      if (!dbAlbumData) {
+        console.log("Error creating album. Skipping. . .");
+        return false;
+      }
+      return dbAlbumData.dataValues.id;
+    })
+    .catch((err) => {
+      console.log("ERROR: album creation failed. Exiting..." + err);
+      return false;
+    });
+}
 
 //function createAlbum(artistName, albumName) {}
+async function albumExists(artistName, albumName) {
+  Album.findOne({
+    where: { title: albumName },
+  })
+    .then((dbAlbumData) => {
+      if (!dbAlbumData) {
+        console.log("Album not found. Creating...");
+        createAlbum(artistName, albumName);
+      }
+      return dbAlbumData.id;
+    })
+    .catch((err) => {
+      console.log("ERROR: " + err);
+      return false;
+    });
+}
 
 function createTrack(trackObj) {
   Track.create({
@@ -110,7 +104,9 @@ function createTrack(trackObj) {
 }
 
 module.exports = {
-  createArtist,
+  artistExists,
+  albumExists,
   createAlbum,
+  createArtist,
   createTrack,
 };
