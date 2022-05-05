@@ -128,40 +128,7 @@ async function scanDirectory(Directory) {
   });
 }
 
-function addToDataBase(dir) {
-  let result;
-  createTrackObject(dir);
-  validateTrackObject(newTrack);
-  console.log(newTrack);
-  // validate artist, or create new
-  newTrack.trackArtist = db.createArtist(newTrack.trackArtist);
 
-  // validate album, or create new
-  newTrack.trackAlbum = db.createAlbum(newTrack.trackAlbum);
-
-  // Once album and artist are validated, create track
-  console.log(newTrack);
-  result = db.createTrack(newTrack);
-  if (!result) {
-    console.log("Failed to create track");
-  } else console.log("track created!");
-}
-
-async function addLibrary(dir) {
-  await scanDirectory(testDir);
-
-  console.log(files[33]);
-
-  addToDataBase(files[33]);
-
-  /*
-  for (i = 0; i < files.length - 1; i++) {
-    console.log(files[i]);
-    await addToDataBase(files[i]);
-  }
-  */
-  console.log("Finished syncing libraries");
-}
 
 module.exports = {
   createTrackObject,

@@ -15,36 +15,49 @@ const FS = require("fs");
 const util = require("util");
 const { getFileExtension } = require("../helpers/fileExtensions");
 
+const testDir = "G:/Music/Music";
+let files = [];
+
 function getAlbums(artist) {}
 
 async function createTrack(fileDir) {
   newTrack = {};
   let trackArtist;
   let trackAlbum;
+  let length;
 
   //parse metadata
   const metadata = await mm.parseFile(fileDir);
-  console.log(metadata.common.artist);
+
+  length = metadata.format.duration;
 
   // check for artist in database, if not, create.
-  db.artistExists(metadata.common.artist).then((result) => {
+  await db.createArtist(metadata.common.artist).then((result) => {
     if (!result) {
       console.log("Artist creation failed, skipping track. . .");
       return;
     }
-    trackArtist = result;
+    try {
+      trackArtist = result.dataValues.id;
+    } catch {
+      trackArtist = 1;
+    }
   });
 
   console.log("TRACK ARTIST: " + trackArtist);
 
-  db.albumExists(metadata.common.album).then((result) => {
+  await db.createAlbum(trackArtist, metadata.common.album).then((result) => {
     if (!result) {
       console.log(
         "ERROR: received undefined instead of an album ID. Skipping track creation..."
       );
       return;
     }
-    trackAlbum = result;
+    try {
+      trackAlbum = result.dataValues.id;
+    } catch {
+      trackAlbum = 1;
+    }
   });
 
   console.log("TRACK ALBUM: " + trackAlbum);
@@ -56,9 +69,11 @@ async function createTrack(fileDir) {
     album_id: trackAlbum,
     artist_id: trackArtist,
     album_art: "",
-    duration: metadata.common.duration,
+    duration: length,
     path: fileDir,
   };
+
+  console.log(newTrack);
 
   const success = await db.createTrack(newTrack);
 
@@ -67,8 +82,49 @@ async function createTrack(fileDir) {
   }
 
   console.log("Track added to database!");
+  console.log("===================================");
+  console.log(success);
+}
+
+async function addLibrary(dir) {
+  await scanDirectory(testDir);
+
+  for (i = 0; i < files.length - 1; i++) {
+    console.log(files[i]);
+    await createTrack(files[i]);
+    setTimeout((e) => {
+      console.log("waiting...");
+      return;
+    }, 1000);
+  }
+  console.log("Finished syncing libraries");
+}
+
+async function scanDirectory(Directory) {
+  FS.readdirSync(Directory).forEach((File) => {
+    const absolutePath = Path.join(Directory, File);
+    if (FS.statSync(absolutePath).isDirectory()) {
+      return scanDirectory(absolutePath);
+    }
+
+    if (
+      (getFileExtension(absolutePath) != "mp3") &
+      (getFileExtension(absolutePath) != "m4a") &
+      (getFileExtension(absolutePath) != "wav") &
+      (getFileExtension(absolutePath) != "aiff") &
+      (getFileExtension(absolutePath) != "ogg") &
+      (getFileExtension(absolutePath) != "flac") &
+      (getFileExtension(absolutePath) != "aac")
+    ) {
+      console.log("File not supported");
+    } else {
+      return files.push(absolutePath);
+    }
+  });
 }
 
 module.exports = {
+  addLibrary,
+  addLibrary,
   createTrack,
 };

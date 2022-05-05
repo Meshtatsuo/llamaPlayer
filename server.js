@@ -39,8 +39,6 @@ sequelize
   .then(() => {
     app.listen(PORT, () => console.log("Now listening"));
     setTimeout(() => {
-      library.createTrack(
-        "G:/Music/Music/Bajofondo/Bajofondo Tango Club/10 Bruma.mp3"
-      );
+      library.addLibrary("G:/Music/Music");
     }, 2000);
   });

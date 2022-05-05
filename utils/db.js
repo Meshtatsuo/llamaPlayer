@@ -4,108 +4,130 @@ const path = require("path");
 const { Album, Artist, Track } = require("../models");
 
 // checks db for existing artist
-function createArtist(artistName) {
-  Artist.create({
-    artist_name: artistName,
-  })
-    .then((dbArtistData) => {
-      if (!dbArtistData) {
-        console.log("No artist created");
-        return false;
-      }
-      console.log("Artist created!");
-      return dbArtistData;
+async function createArtist(artistName) {
+  return new Promise((resolve) => {
+    let exists;
+    // check if artist exists.
+    Artist.findOne({
+      where: { artist_name: artistName },
     })
-    .catch((err) => {
-      console.log("error adding artist to database: " + err);
-      return false;
-    });
-}
+      .then((dbArtistData) => {
+        if (!dbArtistData) {
+          exists = false;
+        }
+        resolve(dbArtistData);
+      })
+      .catch((err) => {
+        console.log("failed to look up in database: ", err);
+        exists = false;
+      });
 
+    if (!exists) {
+      Artist.create({
+        artist_name: artistName,
+      })
+        .then((dbArtistData) => {
+          if (!dbArtistData) {
+            console.log("No artist created");
+            resolve(false);
+          }
+          console.log("Artist created!");
+          resolve(dbArtistData);
+        })
+        .catch((err) => {
+          console.log("error adding artist to database: " + err);
+          resolve(false);
+        });
+    }
+  });
+}
+/*
 // creates a new artist
 async function artistExists(artistName) {
-  Artist.findOne({
-    where: { artist_name: artistName },
-  })
-    .then((dbArtistData) => {
-      if (!dbArtistData) {
-        console.log("Not found");
-        createArtist(artistName);
-      }
-      return dbArtistData.dataValues.id;
-    })
-    .catch((err) => {
-      console.log("failed to look up in dtabase: ", err);
-      return false;
-    });
+  return new Promise((resolve) => {});
 }
+*/
 
-function createAlbum(artistName, albumName) {
-  const artistId = artistExists(artistName);
-  if (!artistId) {
-    console.log("Unable to create artist. skipping album creation...");
-    return false;
-  }
-  Album.create({
-    title: albumName,
-    artist_id: artistId,
-  })
-    .then((dbAlbumData) => {
-      if (!dbAlbumData) {
-        console.log("Error creating album. Skipping. . .");
-        return false;
-      }
-      return dbAlbumData.dataValues.id;
+async function createAlbum(artistId, albumName) {
+  return new Promise((resolve) => {
+    let exists;
+    Album.findOne({
+      where: { title: albumName },
     })
-    .catch((err) => {
-      console.log("ERROR: album creation failed. Exiting..." + err);
-      return false;
-    });
+      .then((dbAlbumData) => {
+        if (!dbAlbumData) {
+          console.log("Album not found. Creating...");
+          exists = false;
+        }
+        resolve(dbAlbumData);
+      })
+      .catch((err) => {
+        console.log("ERROR: " + err);
+        resolve(err);
+      });
+
+    if (!exists) {
+      Album.create({
+        title: albumName,
+        artist_id: artistId,
+      })
+        .then((dbAlbumData) => {
+          if (!dbAlbumData) {
+            console.log("Album creation failed.");
+            resolve(false);
+          }
+          resolve(dbAlbumData);
+        })
+        .catch((err) => resolve(err));
+    }
+  });
 }
 
 //function createAlbum(artistName, albumName) {}
 async function albumExists(artistName, albumName) {
-  Album.findOne({
-    where: { title: albumName },
-  })
-    .then((dbAlbumData) => {
-      if (!dbAlbumData) {
-        console.log("Album not found. Creating...");
-        createAlbum(artistName, albumName);
-      }
-      return dbAlbumData.id;
+  return new Promise((resolve) => {
+    Album.findOne({
+      where: { title: albumName },
     })
-    .catch((err) => {
-      console.log("ERROR: " + err);
-      return false;
-    });
+      .then((dbAlbumData) => {
+        if (!dbAlbumData) {
+          console.log("Album not found. Creating...");
+          createAlbum(artistName, albumName);
+        }
+        resolve(dbAlbumData.dataValues.id);
+      })
+      .catch((err) => {
+        console.log("ERROR: " + err);
+        resolve(false);
+      });
+  });
 }
 
 function createTrack(trackObj) {
-  Track.create({
-    title: trackObj.trackTitle,
-    album_id: trackObj.album_id,
-    artist_id: trackObj.artist_id,
-    album_art: trackObj.albumArt,
-    duration: trackObj.duration,
-    path: trackObj.path,
-  })
-    .then((dbTrackData) => {
-      if (!dbTrackData) {
-        console.log("Error: Failed to create track");
-        return false;
-      }
-      return true;
+  return new Promise((resolve) => {
+    Track.create({
+      title: trackObj.trackTitle,
+      album_id: trackObj.album_id,
+      artist_id: trackObj.artist_id,
+      album_art: trackObj.albumArt,
+      duration: trackObj.duration,
+      path: trackObj.path,
     })
-    .catch((err) => {
-      console.log(err);
-      return false;
-    });
+      .then((dbTrackData) => {
+        if (!dbTrackData) {
+          console.log("Error: Failed to create track");
+          resolve(false);
+        }
+        resolve(dbTrackData);
+      })
+      .catch((err) => {
+        console.log(err);
+        resolve(false);
+      });
+  });
 }
 
 module.exports = {
-  artistExists,
-  albumExists,
   createAlbum,
   createArtist,
   createTrack,
