@@ -5,7 +5,6 @@
     scan through your selected libraries for new files and sort
     them appropriately. It will also be the location 
 ------------------------------------------------------------*/
-// File parser
 const mm = require("music-metadata");
 const { getLyrics, getSong } = require("genius-lyrics-api");
 const db = require("./db");
@@ -44,8 +43,6 @@ async function createTrack(fileDir) {
     }
   });
 
-  console.log("TRACK ARTIST: " + trackArtist);
-
   await db.createAlbum(trackArtist, metadata.common.album).then((result) => {
     if (!result) {
       console.log(
@@ -59,8 +56,6 @@ async function createTrack(fileDir) {
       trackAlbum = 1;
     }
   });
-
-  console.log("TRACK ALBUM: " + trackAlbum);
 
   const albumArt = "";
 
@@ -78,12 +73,13 @@ async function createTrack(fileDir) {
   const success = await db.createTrack(newTrack);
 
   if (!success) {
+    console.log("===================================");
     console.log("Creation failed");
+    console.log("===================================");
   }
-
+  console.log("===================================");
   console.log("Track added to database!");
   console.log("===================================");
-  console.log(success);
 }
 
 async function addLibrary(dir) {

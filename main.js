@@ -16,7 +16,13 @@ const createWindow = () => {
     },
   });
 
-  win.loadFile("./public/index.html");
+  win.loadURL("/");
+  win.on("close", () => {
+    win.webContents.send("stop-server");
+  });
+  win.on("closed", () => {
+    win = null;
+  });
 };
 
 const openSettings = () => {
