@@ -34,6 +34,17 @@ router.get("/", (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
+
+  Track.findAll({
+    attributes: ["title", "duration"],
+  })
+    .then((dbTrackData) => {
+      tracks = dbTrackData.map((track) => track.get({ plain: true }));
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;
