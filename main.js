@@ -1,7 +1,9 @@
 const { app, BrowserWindow } = require("electron");
 // include the Node.js 'path' module at the top of your file
 const path = require("path");
+const { addListener } = require("process");
 const server = require("./server");
+const libManager = require("./utils/libraryManager");
 
 // modify your existing createWindow() function
 const createWindow = () => {
@@ -16,12 +18,9 @@ const createWindow = () => {
     },
   });
 
-  win.loadURL("/");
+  win.loadURL("http://localhost:6969");
   win.on("close", () => {
     win.webContents.send("stop-server");
-  });
-  win.on("closed", () => {
-    win = null;
   });
 };
 
@@ -40,9 +39,22 @@ const openSettings = () => {
   settings.loadFile("./public/settings.html");
 };
 
+async function startServer() {
+  await server.initServer();
+  await initDatabase();
+}
+
+async function initDatabase() {
+  return new Promise((resolve) => {
+    libManager.addLibrary("C:Users/nicmi/Desktop/TestLib");
+    resolve(true);
+  });
+}
+
 // create window if app activated with no windows open
 app.whenReady().then(() => {
   createWindow();
+  startServer();
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });

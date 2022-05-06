@@ -2,43 +2,38 @@ const router = require("express").Router();
 const sequelize = require("../config/connection");
 const path = require("path");
 const { Album, Artist, Track } = require("../models");
+const { contextIsolated } = require("process");
 
 // checks db for existing artist
 async function createArtist(artistName) {
   return new Promise((resolve) => {
-    let exists;
     // check if artist exists.
     Artist.findOne({
       where: { artist_name: artistName },
     })
       .then((dbArtistData) => {
         if (!dbArtistData) {
-          exists = false;
+          Artist.create({
+            artist_name: artistName,
+          })
+            .then((dbArtistData) => {
+              if (!dbArtistData) {
+                console.log("No artist created");
+                resolve(false);
+              }
+              console.log("Artist created!");
+              resolve(dbArtistData);
+            })
+            .catch((err) => {
+              console.log("error adding artist to database: " + err);
+              resolve(false);
+            });
         }
         resolve(dbArtistData);
       })
       .catch((err) => {
         console.log("failed to look up in database: ", err);
-        exists = false;
       });
-
-    if (!exists) {
-      Artist.create({
-        artist_name: artistName,
-      })
-        .then((dbArtistData) => {
-          if (!dbArtistData) {
-            console.log("No artist created");
-            resolve(false);
-          }
-          console.log("Artist created!");
-          resolve(dbArtistData);
-        })
-        .catch((err) => {
-          console.log("error adding artist to database: " + err);
-          resolve(false);
-        });
-    }
   });
 }
 /*
@@ -50,14 +45,24 @@ async function artistExists(artistName) {
 
 async function createAlbum(artistId, albumName) {
   return new Promise((resolve) => {
-    let exists;
     Album.findOne({
       where: { title: albumName },
     })
       .then((dbAlbumData) => {
         if (!dbAlbumData) {
           console.log("Album not found. Creating...");
-          exists = false;
+          Album.create({
+            title: albumName,
+            artist_id: artistId,
+          })
+            .then((dbAlbumData) => {
+              if (!dbAlbumData) {
+                console.log("Album creation failed.");
+                resolve(false);
+              }
+              resolve(dbAlbumData);
+            })
+            .catch((err) => resolve(err));
         }
         resolve(dbAlbumData);
       })
@@ -65,21 +70,6 @@ async function createAlbum(artistId, albumName) {
         console.log("ERROR: " + err);
         resolve(err);
       });
-
-    if (!exists) {
-      Album.create({
-        title: albumName,
-        artist_id: artistId,
-      })
-        .then((dbAlbumData) => {
-          if (!dbAlbumData) {
-            console.log("Album creation failed.");
-            resolve(false);
-          }
-          resolve(dbAlbumData);
-        })
-        .catch((err) => resolve(err));
-    }
   });
 }
 
@@ -105,8 +95,9 @@ async function albumExists(artistName, albumName) {
 
 function createTrack(trackObj) {
   return new Promise((resolve) => {
+    console.log(trackObj);
     Track.create({
-      title: trackObj.trackTitle,
+      title: trackObj.title,
       album_id: trackObj.album_id,
       artist_id: trackObj.artist_id,
       album_art: trackObj.albumArt,

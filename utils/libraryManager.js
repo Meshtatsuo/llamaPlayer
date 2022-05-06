@@ -14,7 +14,6 @@ const FS = require("fs");
 const util = require("util");
 const { getFileExtension } = require("../helpers/fileExtensions");
 
-const testDir = "G:/Music/Music";
 let files = [];
 
 function getAlbums(artist) {}
@@ -83,7 +82,7 @@ async function createTrack(fileDir) {
 }
 
 async function addLibrary(dir) {
-  await scanDirectory(testDir);
+  await scanDirectory(dir);
 
   for (i = 0; i < files.length - 1; i++) {
     console.log(files[i]);

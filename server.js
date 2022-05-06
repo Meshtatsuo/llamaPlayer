@@ -15,7 +15,7 @@ const seed = require("./seeds/index");
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
 
-const PORT = process.env.PORT || 3006;
+const PORT = process.env.PORT || 6969;
 
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
@@ -31,14 +31,24 @@ app.use(
 // turn on routes
 app.use(routes);
 
-// turn on connection to db and server
-sequelize
-  .sync({
-    force: false,
-  })
-  .then(() => {
-    app.listen(PORT, () => console.log("Now listening"));
-    setTimeout(() => {
-      library.addLibrary("G:/Music/Music");
-    }, 2000);
+async function initServer() {
+  return new Promise((resolve) => {
+    // turn on connection to db and server
+    sequelize
+      .sync({
+        force: false,
+      })
+      .then(() => {
+        app.listen(PORT, () => console.log("Now listening"));
+        resolve(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        resolve(err);
+      });
   });
+}
+
+module.exports = {
+  initServer,
+};

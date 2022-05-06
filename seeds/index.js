@@ -2,7 +2,7 @@ const seedAlbums = require("./album-seeds");
 const seedArtists = require("./artist-seeds");
 
 const sequelize = require("../config/connection");
-
+/*
 const seedAll = async () => {
   await sequelize.sync({
     force: true,
@@ -17,5 +17,5 @@ const seedAll = async () => {
 };
 
 seedAll();
-
-module.exports = { seedAll };
+*/
+//module.exports = { seedAll };
