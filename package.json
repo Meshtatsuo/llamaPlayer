@@ -1,8 +1,8 @@
 {
-  "name": "llama-player",
-  "productName": "llama-player",
+  "name": "llamaplayer",
+  "productName": "llamaplayer",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "A local app for audio playback",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
