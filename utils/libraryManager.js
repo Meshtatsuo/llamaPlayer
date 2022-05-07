@@ -29,8 +29,13 @@ async function createTrack(fileDir) {
 
   length = metadata.format.duration;
 
+  let mArtist = metadata.common.artist;
+  if (!mArtist) {
+    mArtist = "Unknown Artist";
+  }
+
   // check for artist in database, if not, create.
-  await db.createArtist(metadata.common.artist).then((result) => {
+  await db.createArtist(mArtist).then((result) => {
     if (!result) {
       console.log("Artist creation failed, skipping track. . .");
       return;
@@ -42,7 +47,12 @@ async function createTrack(fileDir) {
     }
   });
 
-  await db.createAlbum(trackArtist, metadata.common.album).then((result) => {
+  let mAlbum = metadata.common.album;
+  if (!mAlbum) {
+    mAlbum = "Unknown Album";
+  }
+
+  await db.createAlbum(trackArtist, mAlbum).then((result) => {
     if (!result) {
       console.log(
         "ERROR: received undefined instead of an album ID. Skipping track creation..."
@@ -87,10 +97,6 @@ async function addLibrary(dir) {
   for (i = 0; i < files.length - 1; i++) {
     console.log(files[i]);
     await createTrack(files[i]);
-    setTimeout((e) => {
-      console.log("waiting...");
-      return;
-    }, 1000);
   }
   console.log("Finished syncing libraries");
 }

@@ -1,29 +1,41 @@
           <div class="row">
             <!--Row with artist/album/song-->
-            <div id="artist-col" class="block-item col s12 m4">
+            <div id="artist-col" class="block-item col s12 m4 no-margin">
+              <div class="container no-margin">
+                <div class="collection-item collection-header">
+                  <h5>ARTISTS</h5>
+                </div>
+              </div>
               <div class="block-item card-bg overflow">
-                <ul class="collection with-header">
-                  <li class="collection-header"><h5>ARTISTS</h5></li>
+                <ul class="collection">
                     {{#each artists as |artist|}}
                         {{> artists artist}}
-                    {{/each}}
+                    {{/each}}   
                 </ul>
               </div>
             </div>
-            <div id="album-col" class="block-item col s12 m4">
+            <div id="album-col" class="block-item col s12 m4 no-margin">
+              <div class="container no-margin">
+                <div class="collection-item collection-header">
+                  <h5>ALBUMS</h5>
+                </div>
+              </div>              
               <div class="block-item card-bg overflow">
-                <ul class="collection with-header">
-                  <li class="collection-header"><h5>ALBUMS</h5></li>
+                <ul class="collection">
                     {{#each albums as |album|}}
                         {{> albums album}}
                     {{/each}}
                 </ul>
               </div>
             </div>
-            <div id="song-col" class="block-item col s12 m4">
+            <div id="song-col" class="block-item col s12 m4 no-margin">
+              <div class="container no-margin">
+                <div class="collection-item collection-header">
+                  <h5>TRACKS</h5>
+                </div>
+              </div>
               <div class="block-item card-bg overflow">
-                <ul class="collection with-header">
-                  <li class="collection-header"><h5>TRACKS</h5></li>
+                <ul class="collection">
                     {{#each tracks as |track|}}
                         {{> tracks track}}
                     {{/each}}
@@ -32,7 +44,7 @@
             </div>
 
           </div>
-          <div class="row">
+          <div class="row player">
             <div class="col s12">
               <div id="queue" class="now-playing card-bg">
                 <div class="row valign-wrapper">
