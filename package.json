@@ -1,28 +1,51 @@
 {
-  "name": "llamaplayer",
+  "name": "llama-player",
+  "productName": "llama-player",
   "version": "1.0.0",
-  "description": "A local app for audio playback",
+  "description": "My Electron application description",
   "main": "main.js",
   "scripts": {
-    "test": "jest",
-    "start": "electron .",
-    "seed": "node seeds/index.js"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Meshtatsuo/llamaPlayer.git"
+  "keywords": [],
+  "author": {
+    "name": "meshtatsuo",
+    "email": "meshtatsuo@gmail.com"
   },
-  "author": "Dominic Misasi",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Meshtatsuo/llamaPlayer/issues"
-  },
-  "homepage": "https://github.com/Meshtatsuo/llamaPlayer#readme",
-  "devDependencies": {
-    "electron": "^18.1.0",
-    "jest": "^27.5.1"
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "llama_player"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   },
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-handlebars": "^6.0.5",
@@ -32,5 +55,13 @@
     "music-metadata": "^7.12.3",
     "sequelize": "^6.19.0",
     "sqlite3": "^5.0.6"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
+    "electron": "18.2.0"
   }
 }
