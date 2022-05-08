@@ -43,6 +43,14 @@ async function artistExists(artistName) {
 */
 
 async function createAlbum(artistId, albumName) {
+  console.log("++++++++++++++++++++++++++++++++++++++++++++++++");
+  console.log("++++++++++++++++++++++++++++++++++++++++++++++++");
+  console.log("++++++++++++++++++++++++++++++++++++++++++++++++");
+  console.log(artistId);
+  console.log(albumName);
+  console.log("++++++++++++++++++++++++++++++++++++++++++++++++");
+  console.log("++++++++++++++++++++++++++++++++++++++++++++++++");
+  console.log("++++++++++++++++++++++++++++++++++++++++++++++++");
   return new Promise((resolve) => {
     Album.findOne({
       where: { title: albumName },
@@ -50,6 +58,9 @@ async function createAlbum(artistId, albumName) {
       .then((dbAlbumData) => {
         if (!dbAlbumData) {
           console.log("Album not found. Creating...");
+          console.log("-------------------------------------");
+          console.log(artistId);
+          console.log("-------------------------------------");
           Album.create({
             title: albumName,
             artist_id: artistId,
@@ -59,10 +70,12 @@ async function createAlbum(artistId, albumName) {
                 console.log("Album creation failed.");
                 resolve(false);
               }
+              console.log(dbAlbumData);
               resolve(dbAlbumData);
             })
             .catch((err) => resolve(err));
         }
+        console.log(dbAlbumData);
         resolve(dbAlbumData);
       })
       .catch((err) => {

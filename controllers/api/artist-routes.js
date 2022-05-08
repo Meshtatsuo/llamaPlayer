@@ -6,16 +6,14 @@ router.get("/:id", ({ params }, res) => {
   let albums;
   let tracks;
 
-  Artist.findOne({
-    where: { id: params.id },
-  })
+  Artist.findAll({})
     .then((dbArtistData) => {
       if (!dbArtistData) {
         // redirect back home if it fails
         console.log("No artist found");
         res.redirect("/");
       }
-      artists = dbArtistData;
+      artists = dbArtistData.map((artist) => artist.get({ plain: true }));
       console.log(dbArtistData);
       Album.findAll({
         where: { artist_id: params.id },

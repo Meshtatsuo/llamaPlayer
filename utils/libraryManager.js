@@ -48,6 +48,7 @@ async function createTrack(fileDir) {
   });
 
   let mAlbum = metadata.common.album;
+
   if (!mAlbum) {
     mAlbum = "Unknown Album";
   }
