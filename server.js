@@ -8,10 +8,6 @@ const library = require("./utils/libraryManager");
 
 const path = require("path");
 
-//TESTING ONLY
-const test = require("./utils/db");
-const seed = require("./seeds/index");
-
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
 

@@ -1,45 +1,39 @@
 const router = require("express").Router();
-const sequelize = require("../config/connection");
-const path = require("path");
-const { Album, Artist, Track } = require("../models");
+const { Artist, Album, Track } = require("../../models");
 
-router.get("/", (req, res) => {
+router.get("/:id", ({ params }, res) => {
   let artists;
   let albums;
   let tracks;
 
-  // find and set artist data
-  Artist.findAll({
-    attributes: ["id", "artist_name"],
+  Artist.findOne({
+    where: { id: params.id },
   })
     .then((dbArtistData) => {
       if (!dbArtistData) {
-        console.log("No artist data");
+        // redirect back home if it fails
+        console.log("No artist found");
+        res.redirect("/");
       }
-      console.log("Artists Found");
-      artists = dbArtistData.map((artist) =>
-        artist.get({
-          plain: true,
-        })
-      );
-      // find and set album data
+      artists = dbArtistData;
+      console.log(dbArtistData);
       Album.findAll({
-        attributes: ["id", "title"],
+        where: { artist_id: params.id },
       })
         .then((dbAlbumData) => {
           if (!dbAlbumData) {
-            console.log("No album data");
+            console.log("No Albums Found");
           }
-          console.log("Albums Found");
+          console.log(dbAlbumData);
           albums = dbAlbumData.map((album) => album.get({ plain: true }));
           Track.findAll({
-            attributes: ["id", "title", "duration"],
+            where: { artist_id: params.id },
           })
             .then((dbTrackData) => {
               if (!dbTrackData) {
-                console.log("no tracks found :(");
+                console.log("No tracks found");
               }
-              console.log("Tracks Found");
+              console.log();
               tracks = dbTrackData.map((track) => track.get({ plain: true }));
               res.render("homepage", {
                 artists,

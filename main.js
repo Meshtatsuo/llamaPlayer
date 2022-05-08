@@ -46,7 +46,7 @@ async function startServer() {
 
 async function initDatabase() {
   return new Promise((resolve) => {
-    libManager.addLibrary("G:/Music/Music");
+    libManager.addLibrary("C:Users/nicmi/Desktop/TestLib");
     resolve(true);
   });
 }

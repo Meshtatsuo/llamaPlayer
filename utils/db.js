@@ -2,7 +2,6 @@ const router = require("express").Router();
 const sequelize = require("../config/connection");
 const path = require("path");
 const { Album, Artist, Track } = require("../models");
-const { contextIsolated } = require("process");
 
 // checks db for existing artist
 async function createArtist(artistName) {
