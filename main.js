@@ -4,6 +4,7 @@ const path = require("path");
 const { addListener } = require("process");
 const server = require("./server");
 const libManager = require("./utils/libraryManager");
+const testLib = "./testFiles";
 
 // modify your existing createWindow() function
 const createWindow = () => {
@@ -46,7 +47,7 @@ async function startServer() {
 
 async function initDatabase() {
   return new Promise((resolve) => {
-    libManager.addLibrary("G:/Music/Music");
+    libManager.addLibrary(testLib);
     resolve(true);
   });
 }
