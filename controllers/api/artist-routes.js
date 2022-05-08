@@ -14,7 +14,6 @@ router.get("/:id", ({ params }, res) => {
         res.redirect("/");
       }
       artists = dbArtistData.map((artist) => artist.get({ plain: true }));
-      console.log(dbArtistData);
       Album.findAll({
         where: { artist_id: params.id },
       })
