@@ -1,3 +1,11 @@
-<a href="/api/artists/{{id}}">
-  <li class="collection-item"><h6>{{artist_name}}</h6></li>
-</a>
+<li class="row collection-item valign-wrapper">
+  <a href="/api/artists/{{id}}" class="col s8">
+    <h6>{{artist_name}}</h6>
+  </a>
+  <a href="/api/artists/add/{{id}}" class="col s2 track-option">
+    <img id="play-img" src="/images/icon-add-track.png" />
+  </a>
+  <a href="/api/artists/play/{{id}}" class="col s2 track-option">
+    <img id="play-img" src="/images/transport_icons/PlayIcon.png" />
+  </a>
+</li>

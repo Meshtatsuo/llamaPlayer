@@ -29,9 +29,21 @@
   color: white;
 }
 
+.collection .collection-item:hover {
+  background-color: #52565e;
+}
+
 .collection .collection-item:nth-child(odd) {
   text-decoration: none;
   background-color: #63676f;
+  color: white;
+}
+.collection .collection-item:nth-child(odd):hover {
+  background-color: #74787f;
+}
+
+.collection .collection-item a {
+  text-decoration: none;
   color: white;
 }
 
@@ -46,10 +58,16 @@
 
 .now-playing {
   padding: 2%;
+  margin: 0;
 }
 
 .overflow {
   overflow-y: scroll;
+}
+
+.track-option img {
+  padding: 5%;
+  max-width: 50%;
 }
 
 #button-container img {
@@ -80,6 +98,11 @@ main {
   position: relative;
   left: 6%;
   bottom: 0;
+}
+
+.album-art {
+  margin-top: 2%;
+  max-width: 80%;
 }
 
 #queue {
