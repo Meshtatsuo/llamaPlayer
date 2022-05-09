@@ -4,7 +4,8 @@ const path = require("path");
 const { addListener } = require("process");
 const server = require("./server");
 const libManager = require("./utils/libraryManager");
-const testLib = "./testFiles";
+require("dotenv").config();
+const testLib = process.env.TESTLIB;
 
 // modify your existing createWindow() function
 const createWindow = () => {
