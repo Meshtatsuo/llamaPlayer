@@ -4,6 +4,8 @@
 
 <h2 style = "text-align: center;"> An electron app for playing local audio files.</h2>
 
+<b><h2> NOTE: CURRENTLY UNDER DEVELOPMENT FOR MVP</h2></b>
+
 ### The Llama player is a basic music app that allows you to play your local files easily! Simply add your library and you're good to go!
 
 <hr/>
