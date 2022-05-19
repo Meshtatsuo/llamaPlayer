@@ -1,9 +1,24 @@
 const router = require("express").Router();
+const { Track } = require("../../models");
+const player = require("../../utils/audioPlayer");
 
 router.get("/play/:id", (req, res) => {
-  console.log("GET TRACK BY ID: " + req.body.id);
-  res.send("Track by ID");
-  res.render("hompage");
+  Track.findOne({
+    where: { id: req.params.id },
+  })
+    .then((dbTrackData) => {
+      if (!dbTrackData) {
+        console.log("ERROR GETTING TRACK BY  ID");
+        res.status(500).json({ message: "No track found with this id" });
+      }
+      console.log(dbTrackData);
+      player.insertNextTrack(dbTrackData.dataValues.path);
+      res.status(200);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;
