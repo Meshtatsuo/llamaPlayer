@@ -2,8 +2,8 @@ const { app, BrowserWindow } = require("electron");
 // include the Node.js 'path' module at the top of your file
 const path = require("path");
 const { addListener } = require("process");
-const server = require("./server");
-const libManager = require("./utils/libraryManager");
+const server = require("./server/server");
+const libManager = require("./server/utils/libraryManager");
 require("dotenv").config();
 const testLib = process.env.TESTLIB;
 
