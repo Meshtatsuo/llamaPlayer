@@ -20,7 +20,7 @@ const createWindow = () => {
     },
   });
 
-  win.loadURL("http://localhost:6969");
+  win.loadURL("http://localhost:3000");
   win.on("close", () => {
     win.webContents.send("stop-server");
   });
