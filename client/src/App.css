@@ -6,11 +6,12 @@
   --primary_light: #f4f3ee;
   --border_light: #f4f3ee;
   --border_dark: #282c34;
+  font-family: "Nokora", sans-serif;
 }
 
 .App {
   text-align: center;
-  background-color: var(--primary_dark);
+  background-color: black;
   min-height: 100vh;
 }
 
@@ -47,4 +48,37 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Artist Card Stylings */
+.card {
+  background-color: var(--primary_dark);
+  color: var(--border_light);
+  border: 2px solid var(--border_dark);
+  width: 200px;
+  height: 275px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card:hover {
+  box-shadow: 1px 1px 5px var(--border_light);
+}
+
+.card img {
+  flex: 1 1 100%;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.card-info {
+  flex: 1;
+}
+.card-info h3 {
+  flex: 1;
+  font-weight: 400;
+}
+.card-info h4 {
+  flex: 1;
+  font-weight: 300;
 }
