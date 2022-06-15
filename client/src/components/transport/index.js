@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // transport images
 import shuffleIcon from "../../assets/images/transport_icons/ShuffleIcon.png";
@@ -11,42 +11,52 @@ import loopIcon from "../../assets/images/transport_icons/RepeatIcon.png";
 import volIcon from "../../assets/images/transport_icons/VolumeIcon.svg";
 
 function Transport() {
+  const [volume, setVolume] = useState(1);
+
+  function updateVolume(e) {
+    const val = e.target.value;
+    setVolume(val);
+    console.log(e.target.value);
+  }
+
   return (
-    <div class="transport-container">
-      <div class="transport">
-        <div class="footer-left">
-          <h1>Hello Left Side</h1>
+    <div className="transport-container">
+      <div className="transport">
+        <div className="footer-left">
+          <h4>Error Messages or Updates Here</h4>
         </div>
 
-        <div class="footer-middle">
+        <div className="footer-middle">
           <button>
             <img src={shuffleIcon} alt="shuffle-icon" />
           </button>
           <button>
-            <image src={prevIcon} alt="previous-icon" />
+            <img src={prevIcon} alt="previous-icon" />
           </button>
           <button>
-            <image src={playIcon} alt="play-icon" />
+            <img src={playIcon} alt="play-icon" />
           </button>
           <button>
-            <image src={skipIcon} alt="skip-icon" />
+            <img src={skipIcon} alt="skip-icon" />
           </button>
           <button>
-            <image src={loopIcon} alt="loop-icon" />
+            <img src={loopIcon} alt="loop-icon" />
           </button>
         </div>
 
-        <div class="footer-right">
-          <label for="vol-slider" name="vol-slider-label">
+        <div className="footer-right">
+          <label name="vol-slider-label">
             <img src={volIcon} alt="volume-icon" />
           </label>
           <input
             type="range"
-            min="1"
-            max="100"
-            value="75"
-            class="slider"
+            min="0"
+            max="1"
+            step=".01"
+            value={volume}
+            className="slider"
             name="vol-slider"
+            onChange={updateVolume}
           ></input>
         </div>
       </div>
