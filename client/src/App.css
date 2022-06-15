@@ -50,6 +50,46 @@
   }
 }
 
+/* Side Navigation */
+.sidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8%;
+  background-color: var(--primary_dark);
+  display: flex;
+}
+.block-column {
+  flex: 1;
+  margin: 25% auto;
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 80%;
+}
+
+.block-column button {
+  margin: auto;
+  flex: 1 1 100%;
+  background-color: #282c34;
+  border: none;
+}
+
+.block-column button:active {
+  padding: 2%;
+}
+
+.block-column button:active img {
+  max-width: 24%;
+}
+
+.block-column img {
+  max-width: 25%;
+}
+
+.block-column h3 {
+  color: var(--primary_light);
+}
+
 /* Artist Card Stylings */
 .card {
   background-color: var(--primary_dark);

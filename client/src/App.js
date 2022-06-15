@@ -1,3 +1,5 @@
+import { browserRouter as Router, Routes, Route } from "react-router-dom";
+
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -12,7 +14,7 @@ import Transport from "./components/transport";
 function App() {
   return (
     <div className="App">
-      <AlbumCard />
+      <SideNav />
       <Transport />
     </div>
   );
