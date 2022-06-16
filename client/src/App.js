@@ -14,19 +14,24 @@ import Transport from "./components/transport";
 // import pages
 import HomePage from "./pages/Home";
 import ArtistsPage from "./pages/Artists";
+import AlbumsPage from "./pages/Albums";
+import TracksPage from "./pages/Tracks";
+import SingleArtist from "./pages/SingleArtist";
+import SettingsPage from "./pages/Settings";
 
 function App() {
   return (
     <div className="App">
       <main>
-        <SideNav />
         <Router>
+          <SideNav />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/artists" element={<ArtistsPage />} />
-            <Route path="/albums" element={<ArtistsPage />} />
-            <Route path="/tracks" element={<ArtistsPage />} />
-            <Route path="/artist/:id" element={<ArtistsPage />} />
+            <Route path="/albums" element={<AlbumsPage />} />
+            <Route path="/tracks" element={<TracksPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/artist/:id" element={<SingleArtist />} />
           </Routes>
         </Router>
         <Transport />

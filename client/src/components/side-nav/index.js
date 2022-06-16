@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import images
 import settingsIcon from "../../assets/images/settings_icon.png";
 import tracksIcon from "../../assets/images/tracks_icon.png";
@@ -35,7 +35,7 @@ function SideNav() {
             <h3>Tracks</h3>
           </button>
         </Link>
-        <Link to="/artist/:id">
+        <Link to="/settings">
           <button className="artistBtn">
             <img src={settingsIcon} alt="settings-icon" />
             <h3>Settings</h3>
