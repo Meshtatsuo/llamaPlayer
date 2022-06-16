@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 // import images
 import settingsIcon from "../../assets/images/settings_icon.png";
 import tracksIcon from "../../assets/images/tracks_icon.png";
@@ -9,25 +9,26 @@ import homeIcon from "../../assets/images/home_icon.png";
 
 function SideNav() {
   return (
-    <div class="sidebar">
-      <div class="block-column">
-        <button class="homebtn">
+    <div className="sidebar">
+      <div className="block-column">
+        <button className="homebtn">
           <img src={homeIcon} alt="home-icon" />
           <h3>Home</h3>
         </button>
-        <button class="artistBtn">
+
+        <button className="artistBtn">
           <img src={artistIcon} alt="artist-icon" />
           <h3>Artists</h3>
         </button>
-        <button class="albumbtn">
+        <button className="albumbtn">
           <img src={albumIcon} alt="album-icon" />
           <h3>Albums</h3>
         </button>
-        <button class="trackbtn">
+        <button className="trackbtn">
           <img src={tracksIcon} alt="track-icon" />
           <h3>Tracks</h3>
         </button>
-        <button class="artistBtn">
+        <button className="artistBtn">
           <img src={settingsIcon} alt="settings-icon" />
           <h3>Settings</h3>
         </button>

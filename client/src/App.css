@@ -50,6 +50,23 @@
   }
 }
 
+/* Main Content */
+.content {
+  text-align: left;
+  position: absolute;
+  top: 0;
+  left: 8%;
+  bottom: 6%;
+  right: 0;
+  padding: 5%;
+  background-color: #444;
+}
+
+.content h1 {
+  color: var(--primary_light);
+  font-size: 48px;
+}
+
 /* Side Navigation */
 .sidebar {
   position: absolute;
@@ -127,7 +144,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 1em 0;
+  padding: 1% 0;
   width: 100%;
   background-color: var(--primary_dark);
 }
