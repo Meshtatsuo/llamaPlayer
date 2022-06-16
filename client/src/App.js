@@ -18,16 +18,19 @@ import ArtistsPage from "./pages/Artists";
 function App() {
   return (
     <div className="App">
-      <SideNav />
       <main>
+        <SideNav />
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/artists" element={<ArtistsPage />} />
+            <Route path="/albums" element={<ArtistsPage />} />
+            <Route path="/tracks" element={<ArtistsPage />} />
+            <Route path="/artist/:id" element={<ArtistsPage />} />
           </Routes>
         </Router>
+        <Transport />
       </main>
-      <Transport />
     </div>
   );
 }
