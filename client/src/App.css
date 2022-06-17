@@ -77,15 +77,20 @@ hr {
 
 .panel {
   margin: 0 auto;
-  padding: 3%;
+  padding: 3% 0;
   color: var(--primary_light);
   display: flex;
   flex-wrap: wrap;
-  align-content: space-between;
+  justify-content: center;
 }
 
 .panel h2 {
   flex: 1 1 100%;
+}
+
+.spinner {
+  margin: 15% auto;
+  max-width: 5%;
 }
 
 /* Side Navigation */
@@ -138,6 +143,7 @@ hr {
   height: 275px;
   display: flex;
   flex-wrap: wrap;
+  text-align: center;
 }
 
 .card:hover {

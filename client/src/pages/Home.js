@@ -18,7 +18,7 @@ function HomePage() {
         <ArtistCard />
       </div>
       <div className="panel">
-        <h2>Try Starting Here</h2>
+        <h2>Your Top Albums</h2>
         <AlbumCard />
         <AlbumCard />
         <AlbumCard />

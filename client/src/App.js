@@ -8,7 +8,7 @@ import AlbumCard from "./components/album-card";
 import ArtistCard from "./components/artist-card";
 import SettingsModal from "./components/settings-modal";
 import SideNav from "./components/side-nav";
-import TrackList from "./components/track-list";
+import TrackItem from "./components/track-item";
 import Transport from "./components/transport";
 
 // import pages
