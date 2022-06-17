@@ -9,6 +9,13 @@
   font-family: "Nokora", sans-serif;
 }
 
+hr {
+  height: 2px;
+  background-color: rgb(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 15px;
+}
+
 .App {
   text-align: center;
   background-color: black;
@@ -60,11 +67,25 @@
   right: 0;
   padding: 5%;
   background-color: #444;
+  overflow: scroll;
 }
 
 .content h1 {
   color: var(--primary_light);
   font-size: 48px;
+}
+
+.panel {
+  margin: 0 auto;
+  padding: 3%;
+  color: var(--primary_light);
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+.panel h2 {
+  flex: 1 1 100%;
 }
 
 /* Side Navigation */
@@ -109,6 +130,7 @@
 
 /* Artist Card Stylings */
 .card {
+  margin: 1%;
   background-color: var(--primary_dark);
   color: var(--border_light);
   border: 2px solid var(--border_dark);
