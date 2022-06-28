@@ -1,15 +1,15 @@
 import React from "react";
 
+// placeholder image
+import albumCover from "../../assets/images/placeholder_albumart.png";
+
 function AlbumCard(album) {
   // const { title, artwork } = album;
 
   return (
     <div className="card">
       <div className="card-pic">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/9/92/Dark_Before_Dawn_album_cover.jpg"
-          alt="breaking-benjamin group"
-        />
+        <img src={albumCover} alt="breaking-benjamin group" />
       </div>
       <div className="card-info">
         <h3>Dark Before Dawn</h3>
