@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function SettingsPage() {
   const [crossfade, setCrossfade] = useState(false);
 
   let lib = "example/lib";
+  let selectedDir = "";
 
   const updateFade = () => {
     console.log("before: ", crossfade);
@@ -16,6 +17,15 @@ function SettingsPage() {
     }
     console.log(crossfade);
   };
+
+  const updateDirectory = (e) => {
+    e.preventDefault();
+    selectedDir = "jesus";
+  };
+
+  useEffect(() => {
+    console.log("effect");
+  }, [selectedDir]);
 
   return (
     <div className="content">
@@ -30,7 +40,12 @@ function SettingsPage() {
         </div>
         <div id="lib-select" className="settings-option">
           <label for="lib-dir">Library Location: </label>
-          <input type="file" />
+          <input
+            directory=""
+            webkitdirectory=""
+            type="file"
+            onChange={updateDirectory}
+          />
         </div>
       </div>
       <div id="playback-settings" className="settings-panel">
