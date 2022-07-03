@@ -6,6 +6,7 @@
   --primary_light: #f4f3ee;
   --border_light: #f4f3ee;
   --border_dark: #282c34;
+  --accent_dark: #393d45;
   font-family: "Nokora", sans-serif;
 }
 
@@ -269,4 +270,41 @@ hr {
 .settings-option span {
   flex: 1 50%;
   text-align: right;
+}
+
+.collection .collection-item:nth-child(odd) {
+  text-decoration: none;
+  background-color: var(--accent_dark);
+  color: white;
+}
+.collection .collection-item:nth-child(odd):hover {
+  background-color: #74787f;
+}
+
+.track-list {
+  margin: 0 auto;
+  list-style-type: none;
+}
+
+.track-item:nth-child(odd) {
+  text-decoration: none;
+  background-color: var(--accent_dark);
+}
+.track-item:nth-child(odd):hover {
+  background-color: #4a4e56;
+}
+
+.track-item {
+  flex: 1 100%;
+  color: var(--primary_light);
+  padding: 0.5%;
+  display: flex;
+}
+
+.track-item:hover {
+  background-color: #4a4e56;
+}
+
+.track-col {
+  flex: 1 30%;
 }
