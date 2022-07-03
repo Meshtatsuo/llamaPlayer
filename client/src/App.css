@@ -272,15 +272,6 @@ hr {
   text-align: right;
 }
 
-.collection .collection-item:nth-child(odd) {
-  text-decoration: none;
-  background-color: var(--accent_dark);
-  color: white;
-}
-.collection .collection-item:nth-child(odd):hover {
-  background-color: #74787f;
-}
-
 .track-list {
   margin: 0 auto;
   list-style-type: none;
