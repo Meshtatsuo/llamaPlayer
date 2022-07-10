@@ -11,7 +11,7 @@ Playlist.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    tracks: [
+    track_id: [
       {
         type: DataTypes.INTEGER,
         allowNull: true,
