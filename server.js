@@ -11,7 +11,7 @@ const path = require("path");
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
 
-const PORT = process.env.PORT || 6969;
+const PORT = process.env.PORT || 3001;
 
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");

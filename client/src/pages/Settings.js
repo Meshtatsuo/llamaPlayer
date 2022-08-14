@@ -1,7 +1,9 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 function SettingsPage() {
   const [crossfade, setCrossfade] = useState(false);
+  const [currentLibrary, setCurrentLibrary] = useState("");
 
   let lib = "example/lib";
   let selectedDir = "";
@@ -20,12 +22,16 @@ function SettingsPage() {
 
   const updateDirectory = (e) => {
     e.preventDefault();
-    selectedDir = "jesus";
+    let newDir = e.target.files[0].webkitRelativePath;
+    const path = newDir.split("/")[0];
+    setCurrentLibrary(path + "/");
+
+    axios.get("/settings").then((response) => {
+      console.log("response happened");
+    });
   };
 
-  useEffect(() => {
-    console.log("effect");
-  }, [selectedDir]);
+  useEffect(() => {}, [selectedDir]);
 
   return (
     <div className="content">
@@ -35,11 +41,11 @@ function SettingsPage() {
         <h2>Library</h2>
         <div id="lib-display" className="settings-option">
           <p>
-            Current Library: <span>{lib}</span>
+            Current Library: <span>{currentLibrary}</span>
           </p>
         </div>
         <div id="lib-select" className="settings-option">
-          <label for="lib-dir">Library Location: </label>
+          <label htmlFor="lib-dir">Library Location: </label>
           <input
             directory=""
             webkitdirectory=""
@@ -52,7 +58,7 @@ function SettingsPage() {
         <div className="settings-option">
           <h2>Playback</h2>
           <div id="crossfade">
-            <label for="crossfade-option">Crossfade Tracks: </label>
+            <label htmlFor="crossfade-option">Crossfade Tracks: </label>
             <input
               type="checkbox"
               name="crossfade-option"

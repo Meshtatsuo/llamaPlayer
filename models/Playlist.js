@@ -29,3 +29,5 @@ Playlist.init(
     modelName: "Playlist",
   }
 );
+
+module.exports = Playlist;
