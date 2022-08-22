@@ -3,7 +3,7 @@ const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const { addListener } = require("process");
 const server = require("./server");
-const libManager = require("./utils/libraryManager");
+const libManager = require("./server/utils/libraryManager");
 require("dotenv").config();
 const testLib = process.env.TESTLIB;
 

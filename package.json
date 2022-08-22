@@ -48,15 +48,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.0",
-    "electron-squirrel-startup": "^1.0.0",
-    "express": "^4.17.3",
-    "express-handlebars": "^6.0.5",
-    "genius-lyrics-api": "^3.2.0",
-    "howler": "^2.2.3",
-    "materialize-css": "^1.0.0-rc.2",
-    "music-metadata": "^7.12.3",
-    "sequelize": "^6.19.0",
-    "sqlite3": "^5.0.8"
+    "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.63",
