@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 
 function SettingsPage() {
   const [crossfade, setCrossfade] = useState(false);
-
+  let selectedDir;
   let lib = "example/lib";
-  let selectedDir = "";
-
   const updateFade = () => {
     console.log("before: ", crossfade);
     //toggle crossfade update
@@ -19,8 +17,16 @@ function SettingsPage() {
   };
 
   const updateDirectory = (e) => {
-    e.preventDefault();
-    selectedDir = "jesus";
+    //TODO: Parse the path prefix to root folder so we can append it in the loop below
+
+    selectedDir = Object.values(e.target.files);
+    let fileList = [];
+    selectedDir.forEach((file) => {
+      //TODO: Append path prefix to creat full directory path
+      fileList.push(file.webkitRelativePath);
+    });
+
+    console.log(fileList);
   };
 
   useEffect(() => {
