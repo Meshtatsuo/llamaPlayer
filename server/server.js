@@ -9,7 +9,7 @@ const path = require("path");
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
 
-const PORT = process.env.PORT || 6969;
+const PORT = process.env.PORT || 3001;
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());

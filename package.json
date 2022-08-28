@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
-    "develop": "concurrently \"cd client && npm start\" \"npm start\"",
+    "dev": "concurrently \"cd client && npm start\" \"cd server && npm run watch\" \"npm start\"",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",

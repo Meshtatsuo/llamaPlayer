@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function SettingsPage() {
   const [crossfade, setCrossfade] = useState(false);
@@ -17,16 +18,22 @@ function SettingsPage() {
   };
 
   const updateDirectory = (e) => {
-    //TODO: Parse the path prefix to root folder so we can append it in the loop below
-
+    console.log(e);
     selectedDir = Object.values(e.target.files);
     let fileList = [];
     selectedDir.forEach((file) => {
-      //TODO: Append path prefix to creat full directory path
-      fileList.push(file.webkitRelativePath);
+      fileList.push(file.path);
     });
 
-    console.log(fileList);
+    // make post request and send array to server
+    axios
+      .post("/api/lib/new", fileList)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   useEffect(() => {

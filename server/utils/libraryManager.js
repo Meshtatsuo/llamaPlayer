@@ -127,6 +127,6 @@ async function scanDirectory(Directory) {
 
 module.exports = {
   addLibrary,
-  addLibrary,
+  scanDirectory,
   createTrack,
 };
