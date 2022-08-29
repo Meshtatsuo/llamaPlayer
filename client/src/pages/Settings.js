@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { mutation } from "../utils/helpers";
 
 function SettingsPage() {
   const [crossfade, setCrossfade] = useState(false);
@@ -18,16 +19,18 @@ function SettingsPage() {
   };
 
   const updateDirectory = (e) => {
-    console.log(e);
-    selectedDir = Object.values(e.target.files);
-    let fileList = [];
-    selectedDir.forEach((file) => {
-      fileList.push(file.path);
-    });
+    const selDir = mutation([
+      e.target.files[0].path,
+      e.target.files[e.target.files.length - 1].path,
+    ]);
+
+    console.log(selDir);
 
     // make post request and send array to server
     axios
-      .post("/api/lib/new", fileList)
+      .post("/api/lib/new", {
+        data: selDir,
+      })
       .then(function (response) {
         console.log(response);
       })

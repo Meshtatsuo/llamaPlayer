@@ -1,6 +1,18 @@
 const router = require("express").Router();
 const { Artist, Album, Track } = require("../../models");
 
+router.get("/", (req, res) => {
+  Artist.findAll({})
+    .then((dbArtistData) => {
+      if (!dbArtistData) {
+        console.log("No Artists Found");
+        res.status(500).json({ error: "No Artists Found!" });
+      }
+      res.json(dbArtistData);
+    })
+    .catch((error) => console.log(error));
+});
+
 router.get("/:id", ({ params }, res) => {
   let artists;
   let albums;
